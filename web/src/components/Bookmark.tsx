@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Bookmark as Icon, BookmarkCheck } from "lucide-react";
+import { Heart } from "lucide-react";
 const KEY = "andox:saved";
 export function readSaved(): string[] { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch { return []; } }
 export function useSaved() {
@@ -11,5 +11,5 @@ export function useSaved() {
 }
 export default function Bookmark({ slug, compact = false }: { slug: string; compact?: boolean }) {
   const { saved, toggle } = useSaved(); const on = saved.includes(slug);
-  return <button onClick={e => { e.preventDefault(); e.stopPropagation(); toggle(slug); }} aria-pressed={on} aria-label={on ? "Remove from saved" : "Save skill"} className={compact ? "p-1.5 rounded-md text-muted hover:text-ember" : "btn " + (on ? "text-ember border-ember/50" : "")}>{on ? <BookmarkCheck size={compact?15:15}/> : <Icon size={compact?15:15}/>}{!compact && (on ? "Saved" : "Save")}</button>;
+  return <button onClick={e => { e.preventDefault(); e.stopPropagation(); toggle(slug); }} aria-pressed={on} aria-label={on ? "Remove from saved" : "Save skill"} className={compact ? "grid place-items-center size-9 -m-2 rounded-md " + (on ? "text-ember" : "text-muted hover:text-ember") : "btn " + (on ? "text-ember border-ember/50" : "")}><Heart size={16} fill={on ? "currentColor" : "none"}/>{!compact && (on ? "Saved" : "Save")}</button>;
 }

@@ -10,7 +10,7 @@ export default function SavedList({ skills }: { skills: S[] }) {
   const { saved } = useSaved(); const list = saved.map(s => skills.find(x => x.slug === s)!).filter(Boolean);
   const py = `curl -sL https://andos-public.github.io/Andox-skill/install.py | python3 - --skill ${list.map(s=>s.slug).join(" ")}`;
   const prompt = `Read and follow these skills for my task: ${list.map(s=>s.path+"/SKILL.md").join(", ")}. Task: <describe>`;
-  return (<div className="mx-auto max-w-5xl px-4 py-6 sm:py-10">
+  return (<div className="wrap max-w-5xl py-6 sm:py-10">
     <div className="mono">your shelf</div>
     <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight mt-1">Saved skills</h1>
     <p className="mt-1.5 text-muted text-sm sm:text-base">Stored on this device for now. Sign-in and project tracking arrive with Andox Pro.</p>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getSkills, CATEGORIES, CAT_META, catBySlug, PLAYBOOKS, difficulty, whenToUse } from "@/lib/data";
+import { getSkills, CATEGORIES, CAT_META, catBySlug, PLAYBOOKS, difficulty, GROUPS, GROUP_BLURB } from "@/lib/data";
 import CatIcon, { CatBadge } from "@/components/CatIcon";
 import InstallBox from "@/components/InstallBox";
 import Copy from "@/components/Copy";
@@ -16,7 +16,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const pbs = PLAYBOOKS.map(p => ({ p, n: p.steps.flatMap(s => s.skills).filter(k => list.some(x => x.slug === k)).length })).filter(x => x.n > 0);
   const others = CATEGORIES.filter(x => x !== c);
   const prompt = `You have the Andox "${c}" skill set installed under .agents/skills/. Before starting any task that touches ${c.toLowerCase()}, list the relevant SKILL.md files, read the ones that apply, and follow them. Start with: ${start.map(s => s.path + "/SKILL.md").join(", ")}.`;
-  return (<div className="mx-auto max-w-7xl px-4 py-5 sm:py-8">
+  return (<div className="wrap py-5 sm:py-8">
     <Link href="/categories/" className="text-sm text-muted inline-flex items-center gap-1 hover:text-fg"><ArrowLeft size={14}/> Categories</Link>
     <div className="mt-4 flex items-start gap-4"><CatBadge cat={c} size={56}/>
       <div className="min-w-0"><div className="mono">category · {list.length} skills · {packs.length} packs</div><h1 className="mt-1 text-2xl sm:text-4xl font-extrabold tracking-tight">{c}</h1></div></div>
@@ -33,11 +33,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           </div>
         </section>
         <section><div className="flex items-end justify-between mb-3"><h2 className="font-bold text-lg">Start here</h2><span className="mono">recommended order</span></div>
-          <ol className="flow space-y-2 pl-9">{start.map((s,i) => <li key={s.slug} className="relative"><span className="absolute -left-9 top-3 size-6 grid place-items-center rounded-md bg-ember text-black text-xs font-bold font-mono">{i+1}</span><Link href={`/skills/${s.slug}/`} className="panel panel-hover p-3.5 block"><div className="flex items-center justify-between gap-2"><span className="font-semibold">{s.name}</span><span className="tag">{difficulty(s.words)} · {s.readMin}m</span></div><p className="text-sm text-muted mt-1 line-clamp-2">{whenToUse(s.description) ?? s.description}</p></Link></li>)}</ol>
+          <ol className="flow space-y-2 pl-9">{start.map((s,i) => <li key={s.slug} className="relative"><span className="absolute -left-9 top-3 size-6 grid place-items-center rounded-md bg-ember text-black text-xs font-bold font-mono">{i+1}</span><Link href={`/skills/${s.slug}/`} className="panel panel-hover p-3.5 block"><div className="flex items-center justify-between gap-2"><span className="font-semibold">{s.name}</span><span className="tag">{difficulty(s.words)} · {s.readMin}m</span></div><p className="text-sm text-muted mt-1 line-clamp-2">{s.description}</p></Link></li>)}</ol>
         </section>
+        {c === "Methodology" && <section><h2 className="font-bold text-lg mb-3">Six stages of the workflow</h2><div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{GROUPS.map((g,i) => { const n = list.filter(s => s.group === g).length; return (<Link key={g} href={`/skills/?cat=Methodology&group=${encodeURIComponent(g)}`} className="panel panel-hover p-4 flex gap-3"><span className="size-7 grid place-items-center rounded-md bg-ember text-black text-xs font-bold font-mono shrink-0">{i+1}</span><div className="min-w-0"><div className="font-semibold">{g}</div><p className="text-xs text-muted mt-0.5 line-clamp-2">{GROUP_BLURB[g]}</p><div className="text-xs font-semibold text-ember mt-1.5">{n} skills</div></div></Link>); })}</div></section>}
         <section><div className="flex items-end justify-between mb-3"><h2 className="font-bold text-lg">All {list.length} skills by pack</h2><Link href={`/skills/?cat=${encodeURIComponent(c)}`} className="text-sm font-semibold text-ember">Search inside <ArrowRight size={14} className="inline"/></Link></div>
           <div className="space-y-3">{packs.map(({p, items}) => (<details key={p} className="panel overflow-hidden group" open={items.length <= 6}>
-            <summary className="list-none cursor-pointer p-4 flex items-center justify-between gap-3"><div><div className="font-semibold">{p}</div><div className="mono normal-case">{items[0].author} · {items[0].stars} stars</div></div><span className="tag">{items.length}</span></summary>
+            <summary className="list-none cursor-pointer p-4 flex items-center justify-between gap-3"><div><div className="font-semibold">{p}</div><div className="mono normal-case">{items[0].author} · {items[0].stars} GitHub stars</div></div><span className="tag">{items.length}</span></summary>
             <div className="border-t border-line divide-y divide-line">{items.map(s => <Link key={s.slug} href={`/skills/${s.slug}/`} className="flex items-center gap-3 px-4 py-3 hover:bg-bg"><div className="min-w-0 flex-1"><div className="text-sm font-medium truncate">{s.name}</div><div className="text-xs text-muted truncate">{s.description}</div></div><span className="mono shrink-0">{s.readMin}m</span><ArrowRight size={14} className="text-muted shrink-0"/></Link>)}</div>
           </details>))}</div>
         </section>

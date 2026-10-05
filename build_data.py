@@ -18,6 +18,18 @@ def source(top):
     if top in VERC: return ('Vercel Labs','https://github.com/vercel-labs/agent-skills','—')
     if top in SICK: return ('sickn33 AAS','https://github.com/sickn33/agentic-awesome-skills','47K')
     return ('Community','https://github.com','—')
+GROUPS=[
+ ('Plan',r'brainstorm|writing-plans|planning|idea-refine|interview-me|grill|to-spec|to-tickets|to-questionnaire|spec-driven|domain-modeling|research|prototype|wizard|constraint-driven|wayfinder'),
+ ('Debug',r'debug|diagnos|investigate|triage|wait-what|browser-testing|observability'),
+ ('Review',r'review|ponytail|verif|audit|debt|gain|code-quality'),
+ ('Ship',r'--pr$|git|commit|finishing|ci-cd|shipping|handoff|pre-commit|retro|documentation|deprecation'),
+ ('Build / TDD',r'tdd|test-driven|implement|incremental|executing-plans|lean-build|surgical|source-driven|doubt-driven|refactor|simplification|architecture|performance'),
+]
+def group(slug,cat):
+    if cat!='Methodology': return ''
+    for g,pat in GROUPS:
+        if re.search(pat,slug): return g
+    return 'Agent workflow'
 skills=[]
 for dp,dn,fn in os.walk(ROOT):
     if 'SKILL.md' not in fn: continue
@@ -45,12 +57,14 @@ for dp,dn,fn in os.walk(ROOT):
             if os.path.getsize(p)<400_000: files.append(os.path.relpath(p,dp))
     a,url,stars=source(top)
     words=len(body.split())
-    skills.append(dict(slug=slug,name=name,pack=top,path=f'.agents/skills/{rel}',category=cat,description=desc[:400],author=a,sourceUrl=url,stars=stars,words=words,readMin=max(1,words//220),files=sorted(files)[:40],allFiles=sorted(files),body=body))
+    skills.append(dict(slug=slug,name=name,pack=top,path=f'.agents/skills/{rel}',category=cat,group=group(slug,cat),description=desc[:600],author=a,sourceUrl=url,stars=stars,words=words,readMin=max(1,words//220),files=sorted(files)[:40],allFiles=sorted(files),body=body))
 skills.sort(key=lambda s:(s['category'],s['pack'],s['name']))
 os.makedirs('web/data',exist_ok=True)
 json.dump([{k:v for k,v in s.items() if k not in('body','allFiles')} for s in skills],open('web/data/skills.json','w'),ensure_ascii=False)
 os.makedirs('web/data/bodies',exist_ok=True)
 for s in skills: open(f"web/data/bodies/{s['slug']}.md",'w').write(s['body'])
+os.makedirs('web/public/b',exist_ok=True)
+for s in skills: open(f"web/public/b/{s['slug']}.md",'w').write(s['body'])
 os.makedirs('web/public',exist_ok=True)
 json.dump({'repo':'andos-public/Andox-skill','branch':'main','skills':{s['slug']:{'name':s['name'],'path':s['path'],'category':s['category'],'pack':s['pack'],'files':s['allFiles']} for s in skills}},open('web/public/manifest.json','w'))
 from collections import Counter
