@@ -44,3 +44,14 @@ export const PLAYBOOKS: Playbook[] = [
       {title:"Break it", why:"Long text, empty states, errors, tiny screens.", skills:["emilkowalski--break-ui","playwright-skill"]},
     ]},
 ];
+
+export type Outline = { level: number; text: string }[];
+export function getOutline(body: string): Outline {
+  const out: Outline = [];
+  for (const line of body.split("\n")) { const m = /^(#{2,3})\s+(.+)/.exec(line); if (m) out.push({ level: m[1].length, text: m[2].replace(/[*`_]/g, "").trim() }); }
+  return out.slice(0, 14);
+}
+export function whenToUse(desc: string): string | null {
+  const m = /(use (?:this )?(?:skill )?when[^.]*\.|when (?:the user|you|a user)[^.]*\.|use for[^.]*\.)/i.exec(desc); return m ? m[1] : null;
+}
+export function difficulty(words: number): "Quick" | "Standard" | "Deep" { return words < 500 ? "Quick" : words < 1800 ? "Standard" : "Deep"; }
