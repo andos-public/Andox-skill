@@ -1,9 +1,7 @@
-// Icon set: Phosphor Icons (MIT, https://phosphoricons.com). Active = filled weight, inactive = regular.
-import { House, SquaresFour, Books, Path, Heart, MagnifyingGlass, Brain, PaintBrush, ShieldCheck, Atom, FileText, Binoculars, Stack, CaretDown, Sparkle } from "@phosphor-icons/react/dist/ssr";
-import type { IconProps } from "@phosphor-icons/react";
+// Icon set: Tabler Icons (MIT, https://tabler.io/icons) — 1.75px outline, filled variants for active states.
+import { IconHome, IconHomeFilled, IconCompass, IconCompassFilled, IconLayoutGrid, IconLayoutGridFilled, IconBook, IconBookFilled, IconBookmark, IconBookmarkFilled, IconSearch, IconBrain, IconPalette, IconShieldCheck, IconAtom2, IconFileText, IconTelescope, IconStack2, IconChevronDown, IconSparkles, IconHeart, IconHeartFilled, type IconProps } from "@tabler/icons-react";
 type P = { size?: number; className?: string; active?: boolean; style?: React.CSSProperties };
-const mk = (I: React.ComponentType<IconProps>) => ({ size = 22, className = "", active = false, style }: P) => <I size={size} weight={active ? "fill" : "regular"} className={className} style={style} aria-hidden/>;
-export const IHome = mk(House); export const IExplore = mk(SquaresFour); export const ICatalog = mk(Books); export const IPlaybook = mk(Path); export const IHeart = mk(Heart); export const ISearch = mk(MagnifyingGlass);
-export const IBrain = mk(Brain); export const IPalette = mk(PaintBrush); export const IShield = mk(ShieldCheck); export const IAtom = mk(Atom); export const IDoc = mk(FileText); export const IScan = mk(Binoculars); export const ILayers = mk(Stack);
-export const IChevron = ({ size = 18, className = "", style }: P) => <CaretDown size={size} weight="bold" className={className} style={style} aria-hidden/>;
-export const ISpark = ({ size = 18, className = "", style }: P) => <Sparkle size={size} weight="fill" className={className} style={style} aria-hidden/>;
+const mk = (R: React.ComponentType<IconProps>, F?: React.ComponentType<IconProps>) => function I({ size = 22, className = "", active = false, style }: P) { const C = active && F ? F : R; return <C size={size} stroke={1.75} className={className} style={style} aria-hidden/>; };
+export const IHome = mk(IconHome, IconHomeFilled); export const IExplore = mk(IconCompass, IconCompassFilled); export const ICatalog = mk(IconLayoutGrid, IconLayoutGridFilled); export const IPlaybook = mk(IconBook, IconBookFilled); export const ISaved = mk(IconBookmark, IconBookmarkFilled); export const IHeart = mk(IconHeart, IconHeartFilled); export const ISearch = mk(IconSearch);
+export const IBrain = mk(IconBrain); export const IPalette = mk(IconPalette); export const IShield = mk(IconShieldCheck); export const IAtom = mk(IconAtom2); export const IDoc = mk(IconFileText); export const IScan = mk(IconTelescope); export const ILayers = mk(IconStack2);
+export const IChevron = mk(IconChevronDown); export const ISpark = mk(IconSparkles);
