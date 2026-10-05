@@ -18,7 +18,7 @@ export default function Home() {
             <Link href="/playbooks/" className="btn">See playbooks <Route size={16}/></Link>
           </div>
           <div className="rise rise-4 mt-10 mx-auto max-w-xl card p-3 flex items-center gap-3 text-left font-mono text-sm">
-            <Terminal size={16} className="text-muted shrink-0"/><span className="truncate">npx skills add andos-public/Andos-skill-page</span><span className="ml-auto"><Copy text="npx skills add andos-public/Andos-skill-page" label="Copy"/></span>
+            <Terminal size={16} className="text-muted shrink-0"/><span className="truncate">npx skills add andos-public/Andox-skill</span><span className="ml-auto"><Copy text="npx skills add andos-public/Andox-skill" label="Copy"/></span>
           </div>
         </div>
       </section>

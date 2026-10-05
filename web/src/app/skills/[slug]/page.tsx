@@ -11,9 +11,9 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const body = getBody(slug);
   const related = getSkills().filter(x => x.slug !== s.slug && (x.pack === s.pack || x.category === s.category)).slice(0, 6);
   const inPlaybooks = PLAYBOOKS.filter(p => p.steps.some(st => st.skills.includes(s.slug)));
-  const install = `npx skills add andos-public/Andos-skill-page --skill ${s.name}`;
+  const install = `npx skills add andos-public/Andox-skill --skill ${s.name}`;
   const prompt = `Read the skill at ${s.path}/SKILL.md and follow it step by step for this task: <describe your task>. Report what you did and what you verified.`;
-  const raw = `https://raw.githubusercontent.com/andos-public/Andos-skill-page/main/${s.path}/SKILL.md`;
+  const raw = `https://raw.githubusercontent.com/andos-public/Andox-skill/main/${s.path}/SKILL.md`;
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 grid gap-8 lg:grid-cols-[1fr_320px]">
       <article>

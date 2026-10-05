@@ -10,7 +10,7 @@ export default function Nav() {
           <Link className="px-3 py-1.5 rounded-lg hover:bg-soft" href="/skills/">Catalog</Link>
           <Link className="px-3 py-1.5 rounded-lg hover:bg-soft" href="/playbooks/">Playbooks</Link>
           <Link className="px-3 py-1.5 rounded-lg hover:bg-soft hidden sm:block" href="/#how">How it works</Link>
-          <a className="btn !p-2 ml-1" aria-label="GitHub" href="https://github.com/andos-public/Andos-skill-page" target="_blank" rel="noreferrer"><Github size={16}/></a>
+          <a className="btn !p-2 ml-1" aria-label="GitHub" href="https://github.com/andos-public/Andox-skill" target="_blank" rel="noreferrer"><Github size={16}/></a>
           <ThemeToggle/>
         </nav>
       </div>
