@@ -55,7 +55,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
       <div className="mt-3 flex flex-wrap items-center gap-1.5"><Link href={`/categories/${CAT_META[s.category]?.slug}/`} className="tag" style={{color: CAT_META[s.category]?.color, borderColor: CAT_META[s.category]?.color+"66"}}><CatIcon cat={s.category} size={12}/> {s.category}</Link>{s.group && <span className="tag">{s.group}</span>}<span className="tag">{s.pack}</span><span className="tag">{diff}</span><span className="tag">{s.readMin} min</span></div>
       <h1 className="mt-3 text-2xl sm:text-4xl font-extrabold tracking-tight break-words">{s.name}</h1>
       <p className="mt-2 text-muted text-[15px] sm:text-lg max-w-3xl">{s.description}</p>
-      <div className="mt-4 flex gap-2 overflow-x-auto hide-scroll -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap"><Copy text={install} label="Install command" variant="btn-ember"/><Copy text={body} label="SKILL.md"/><Copy text={prompt} label="Agent prompt"/><Bookmark slug={s.slug}/></div>
+      <div className="mt-4 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"><Copy text={install} label="Install command" variant="btn-ember"/><Copy text={body} label="Copy SKILL.md"/><span className="hidden sm:contents"><Copy text={prompt} label="Agent prompt"/><Bookmark slug={s.slug}/></span></div>
       <StickyBar prompt={prompt} install={install} slug={s.slug}/>
       <div className="mt-6"><Tabs tabs={[{id:"o",label:"Overview",content:overview},{id:"i",label:"Install",content:<div className="max-w-2xl"><InstallBox target={`--skill ${s.slug}`} npx={install}/></div>},{id:"d",label:"Full SKILL.md",content:doc},{id:"f",label:`Files (${s.files.length})`,content:files},{id:"r",label:"Related",content:rel}]}/></div>
     </div>

@@ -74,3 +74,5 @@ a.panel,button.panel{-webkit-tap-highlight-color:transparent}
 h1,h2,h3{text-wrap:balance}p{text-wrap:pretty}
 .btn-ember{box-shadow:0 6px 20px -8px color-mix(in oklab,var(--ember) 70%,transparent)}
 @media (max-width:767px){main{padding-bottom:96px}}
+/* mobile overflow guards (layered so utilities like min-w-[260px] still win) */
+@layer base{.grid>*,.flex>a,.flex>div,.flex>span.truncate{min-width:0}pre,code,kbd{max-width:100%}img,svg,video{max-width:100%}body{overflow-x:hidden}}

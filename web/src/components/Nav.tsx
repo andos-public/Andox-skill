@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
+import Settings from "./Settings";
 import { IHome, IExplore, ICatalog, IPlaybook, IHeart, ISearch } from "./icons";
 import { useT, LangToggle } from "@/lib/i18n";
 const BP = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -21,7 +22,7 @@ export default function Nav() {
         </nav>
         <div className="flex items-center gap-1.5">
           <button onClick={openPalette} aria-label={t("search")} className="btn !min-h-10 !px-3 text-muted press"><ISearch size={18}/><span className="hidden sm:inline">{t("search")}</span><span className="kbd hidden sm:inline">⌘K</span></button>
-          <LangToggle/><ThemeToggle/>
+          <span className="hidden md:flex items-center gap-1.5"><LangToggle/><ThemeToggle/></span><Settings/>
         </div>
       </div>
     </header>

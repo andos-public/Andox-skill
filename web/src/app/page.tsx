@@ -20,12 +20,12 @@ export default function Home() {
         <div>
           <div className="in mono flex items-center gap-2"><span className="size-1.5 rounded-full bg-ember"/> {skills.length} skills · {packs} packs · {PLAYBOOKS.length} playbooks</div>
           <h1 className="in in-1 mt-4 text-[2.25rem] leading-[1.05] sm:text-6xl lg:text-7xl font-extrabold tracking-tight"><T k="hero1"/><br/><span className="text-ember"><T k="hero2"/></span></h1>
-          <p className="in in-2 mt-5 text-muted text-base sm:text-lg max-w-xl"><T k="heroP"/></p>
+          <p className="in in-2 mt-4 text-muted text-[15px] sm:text-lg max-w-xl line-clamp-3 sm:line-clamp-none"><T k="heroP"/></p>
           <div className="in in-3 mt-7 flex flex-col sm:flex-row gap-3">
             <Link href="/skills/" className="btn btn-ember"><T k="openCatalog"/> <ArrowRight size={16}/></Link>
             <Link href="/playbooks/" className="btn"><T k="startPlaybook"/> <Route size={16}/></Link>
           </div>
-          <div className="in in-3 mt-6 panel p-3 flex items-center gap-2 font-mono text-[13px] max-w-xl"><Terminal size={15} className="text-ember shrink-0"/><span className="truncate text-muted">{py.replace("https://","")}</span><span className="ml-auto"><Copy text={py} label="Copy" variant="!min-h-9 !px-2.5 text-xs"/></span></div>
+          <div className="in in-3 mt-6 panel p-3 hidden sm:flex items-center gap-2 font-mono text-[13px] max-w-xl"><Terminal size={15} className="text-ember shrink-0"/><span className="truncate text-muted">{py.replace("https://","")}</span><span className="ml-auto"><Copy text={py} label="Copy" variant="!min-h-9 !px-2.5 text-xs"/></span></div>
         </div>
         <div className="in in-2 panel p-4 sm:p-5 bg-bg2 hidden lg:block">
           <div className="flex items-center gap-1.5 mb-3"><span className="size-2.5 rounded-full bg-line"/><span className="size-2.5 rounded-full bg-line"/><span className="size-2.5 rounded-full bg-line"/><span className="mono ml-2">agent session · andox</span></div>
