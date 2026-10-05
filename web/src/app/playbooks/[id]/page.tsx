@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PLAYBOOKS, getSkill, CAT_META, difficulty } from "@/lib/data";
 import Copy from "@/components/Copy";
 import { ArrowLeft } from "lucide-react";
+import CatIcon from "@/components/CatIcon";
 export function generateStaticParams() { return PLAYBOOKS.map(p => ({ id: p.id })); }
 export default async function Playbook({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params; const p = PLAYBOOKS.find(x => x.id === id); if (!p) return <div className="p-10">Not found</div>;
@@ -18,7 +19,7 @@ export default async function Playbook({ params }: { params: Promise<{ id: strin
       {p.steps.map((s,i)=>(<li key={i} id={`step-${i+1}`} className="relative scroll-mt-20">
         <span className="absolute -left-10 sm:-left-12 top-3 size-6 grid place-items-center rounded-md bg-ember text-black text-xs font-bold font-mono">{i+1}</span>
         <div className="panel p-4 sm:p-5"><div className="font-bold text-lg leading-snug">{s.title}</div><p className="text-sm text-muted mt-1">{s.why}</p>
-          <div className="mt-4 grid gap-2 sm:grid-cols-2">{s.skills.map(k=>{const sk=getSkill(k); if(!sk) return null; return (<Link key={k} href={`/skills/${k}/`} className="rounded-xl border border-line p-3 hover:border-ember/60 transition-colors"><div className="flex items-center justify-between"><span className="mono normal-case">{CAT_META[sk.category]?.icon} {sk.pack}</span><span className="tag">{difficulty(sk.words)}</span></div><div className="font-semibold text-sm mt-1.5">{sk.name}</div><div className="text-xs text-muted line-clamp-2 mt-1">{sk.description}</div></Link>);})}</div>
+          <div className="mt-4 grid gap-2 sm:grid-cols-2">{s.skills.map(k=>{const sk=getSkill(k); if(!sk) return null; return (<Link key={k} href={`/skills/${k}/`} className="rounded-xl border border-line p-3 hover:border-ember/60 transition-colors"><div className="flex items-center justify-between"><span className="mono normal-case flex items-center gap-1"><CatIcon cat={sk.category} size={12}/> {sk.pack}</span><span className="tag">{difficulty(sk.words)}</span></div><div className="font-semibold text-sm mt-1.5">{sk.name}</div><div className="text-xs text-muted line-clamp-2 mt-1">{sk.description}</div></Link>);})}</div>
         </div></li>))}
     </ol>
   </div>);

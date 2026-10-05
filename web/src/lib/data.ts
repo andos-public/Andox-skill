@@ -7,14 +7,28 @@ export function getSkills(): Skill[] { if (!cache) cache = JSON.parse(fs.readFil
 export function getSkill(slug: string) { return getSkills().find(s => s.slug === slug); }
 export function getBody(slug: string) { try { return fs.readFileSync(path.join(DATA, "bodies", slug + ".md"), "utf8"); } catch { return ""; } }
 export const CATEGORIES = ["Methodology","Design & UX","Security","React & Web","Documents","Research & Tools"] as const;
-export const CAT_META: Record<string,{icon:string; color:string; blurb:string}> = {
-  "Methodology": { icon: "🧠", color: "violet", blurb: "Plan → TDD → debug → review → ship. Superpowers, Addy Osmani, Matt Pocock, Ponytail." },
-  "Design & UX": { icon: "🎨", color: "pink", blurb: "Taste, UI/UX Pro Max, Emil Kowalski animations, Front-End Checklist." },
-  "Security": { icon: "🛡️", color: "red", blurb: "Trail of Bits audits, Strix pentest, OWASP-aligned secure coding." },
-  "React & Web": { icon: "⚛️", color: "sky", blurb: "Vercel React best practices, Supabase, Playwright, deploy." },
-  "Documents": { icon: "📄", color: "amber", blurb: "docx, pptx, xlsx, pdf, slides, humanizer." },
-  "Research & Tools": { icon: "🔎", color: "emerald", blurb: "last30days research, archify diagrams, skill & MCP builders." },
+export type CatMeta = { slug:string; icon:string; blurb:string; long:string; forWho:string; outcomes:string[]; start:string[] };
+export const CAT_META: Record<string,CatMeta> = {
+  "Methodology": { slug:"methodology", icon:"brain", blurb:"Plan → TDD → debug → review → ship. Superpowers, Addy Osmani, Matt Pocock, Ponytail.",
+    long:"Methodology skills change how your agent thinks before it writes code: interrogating requirements, writing plans, test-driven loops, systematic debugging and honest self-review. They are the backbone of every playbook and the first thing worth installing.",
+    forWho:"Anyone running an agent on a real codebase — solo builders, teams, students.", outcomes:["Fewer wrong-thing-built-fast moments","Smaller, reviewable diffs","Repeatable plan → build → verify loop"], start:["mattpocock--grill-me","superpowers--brainstorming","superpowers--test-driven-development","ponytail--ponytail"] },
+  "Design & UX": { slug:"design", icon:"palette", blurb:"Taste, UI/UX Pro Max, Emil Kowalski animations, Front-End Checklist.",
+    long:"Design skills give the agent taste: typography and spacing systems, motion that feels native, accessibility and the long tail of front-end polish that separates a demo from a product. Use them when building UI or reviewing one.",
+    forWho:"Builders shipping web or mobile UI who want it to feel premium without a designer on call.", outcomes:["Consistent spacing, type and colour decisions","Animations with proper easing and duration","Pre-launch front-end checklist passes"], start:["taste--taste-skill","ui-ux-pro-max","emilkowalski--animate","gstack--design-review"] },
+  "Security": { slug:"security", icon:"shield", blurb:"Trail of Bits audits, Strix pentest, OWASP-aligned secure coding.",
+    long:"Security skills bring audit-grade habits to everyday coding: differential review of risky diffs, OWASP Top-10 testing, secure defaults for auth, APIs and databases, and offensive checks before attackers run them for you.",
+    forWho:"Anyone handling logins, payments, wallets, user data or public APIs.", outcomes:["Auth and session flows reviewed against known attack classes","Input, injection and XSS checks on every surface","Pentest-style verification before release"], start:["trailofbits--differential-review","strix--owasp-top-10-testing","security-review","api-security-best-practices"] },
+  "React & Web": { slug:"react", icon:"atom", blurb:"Vercel React best practices, Supabase, Playwright, deploy.",
+    long:"Framework-specific knowledge for modern web apps: React composition and performance patterns from Vercel, Supabase/Postgres practices, browser testing with Playwright and deployment hygiene.",
+    forWho:"React / Next.js developers and anyone shipping to Vercel or Supabase.", outcomes:["Idiomatic component composition","Fewer re-render and data-fetching mistakes","E2E tests that actually run in CI"], start:["react-best-practices","composition-patterns","playwright-skill","deploy-to-vercel"] },
+  "Documents": { slug:"documents", icon:"file", blurb:"docx, pptx, xlsx, pdf, slides, humanizer.",
+    long:"Let the agent produce real deliverables — Word, PowerPoint, Excel and PDF — with correct structure, plus writing skills that make generated prose read like a human wrote it.",
+    forWho:"Consultants, founders, students and teams who ship documents, not just code.", outcomes:["Properly formatted Office files","Slide decks from an outline","Natural, un-robotic writing"], start:["docx","pptx","xlsx","humanizer"] },
+  "Research & Tools": { slug:"research", icon:"scan", blurb:"last30days research, archify diagrams, skill & MCP builders.",
+    long:"Meta-skills: researching what changed recently, drawing architecture diagrams from a codebase, and building new skills or MCP servers so the library grows with your needs.",
+    forWho:"Power users who extend their agent rather than only consume it.", outcomes:["Up-to-date research summaries","Architecture diagrams on demand","Your own skills and MCP servers"], start:["last30days","archify","skill-creator","mcp-builder"] },
 };
+export function catBySlug(slug: string) { return Object.entries(CAT_META).find(([,m]) => m.slug === slug)?.[0]; }
 export type Playbook = { id:string; title:string; tagline:string; goal:string; steps:{title:string; why:string; skills:string[]}[] };
 export const PLAYBOOKS: Playbook[] = [
   { id:"build-a-website", title:"Build a production website", tagline:"Idea → shipped site, with taste and tests.", goal:"Go from a vague idea to a deployed, reviewed, mobile-ready website using a repeatable agent workflow.",
@@ -37,7 +51,7 @@ export const PLAYBOOKS: Playbook[] = [
     ]},
   { id:"polish-ui", title:"Polish an existing UI", tagline:"From 'works' to 'feels premium' in one pass.", goal:"Audit and upgrade an existing interface: hierarchy, spacing, motion, accessibility and performance.",
     steps:[
-      {title:"Visual audit", why:"Find inconsistency, slop and slow interactions.", skills:["gstack--design-review","taste--redesign-skill","ui-ux-pro-max"]},
+      {title:"Visual audit", why:"Find inconsistency, slop and slow interactions.", skills:["gstack--design-review","taste--taste-skill","ui-ux-pro-max"]},
       {title:"Motion pass", why:"Add animation only where it helps.", skills:["emilkowalski--find-animation-opportunities","emilkowalski--improve-animations","emilkowalski--review-animations"]},
       {title:"Accessibility & forms", why:"Keyboard, focus, contrast, validation.", skills:["frontend-checklist--keyboard-navigation","frontend-checklist--focus-management","frontend-checklist--color-contrast","frontend-checklist--form-validation"]},
       {title:"Performance", why:"Core Web Vitals that users feel.", skills:["frontend-checklist--largest-contentful-paint","frontend-checklist--cumulative-layout-shift","vercel-optimize"]},

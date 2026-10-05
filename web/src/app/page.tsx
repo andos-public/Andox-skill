@@ -3,6 +3,8 @@ import { getSkills, CATEGORIES, CAT_META, PLAYBOOKS } from "@/lib/data";
 import { ArrowRight, Terminal, Search, Route, ShieldCheck, Sparkles, Boxes } from "lucide-react";
 import Copy from "@/components/Copy";
 import Typer from "@/components/Typer";
+import CatIcon, { CatBadge } from "@/components/CatIcon";
+import { Star } from "lucide-react";
 export default function Home() {
   const skills = getSkills();
   const counts = Object.fromEntries(CATEGORIES.map(c => [c, skills.filter(s => s.category === c).length]));
@@ -11,18 +13,18 @@ export default function Home() {
   return (<>
     <section className="relative overflow-hidden">
       <div className="absolute inset-0 grid-bg pointer-events-none"/>
-      <div className="relative mx-auto max-w-7xl px-4 pt-14 pb-10 sm:pt-24 sm:pb-16 grid lg:grid-cols-[1.1fr_.9fr] gap-10 items-center">
+      <div className="relative mx-auto max-w-7xl px-4 pt-10 pb-8 sm:pt-24 sm:pb-16 grid lg:grid-cols-[1.1fr_.9fr] gap-10 items-center">
         <div>
           <div className="in mono flex items-center gap-2"><span className="size-1.5 rounded-full bg-ember"/> {skills.length} skills · {packs} packs · {PLAYBOOKS.length} playbooks</div>
-          <h1 className="in in-1 mt-4 text-[2.6rem] leading-[1.02] sm:text-6xl font-extrabold tracking-tight">The skill workbench<br/>for your <span className="text-ember">AI agent.</span></h1>
+          <h1 className="in in-1 mt-4 text-[2.25rem] leading-[1.05] sm:text-6xl font-extrabold tracking-tight">The skill workbench<br/>for your <span className="text-ember">AI agent.</span></h1>
           <p className="in in-2 mt-5 text-muted text-base sm:text-lg max-w-xl">Andox curates the most-used open-source agent skills into one organised, searchable library — with playbooks that tell your agent <em>which</em> skill to load, <em>when</em>, and <em>why</em>.</p>
           <div className="in in-3 mt-7 flex flex-col sm:flex-row gap-3">
             <Link href="/skills/" className="btn btn-ember">Open the catalog <ArrowRight size={16}/></Link>
             <Link href="/playbooks/" className="btn">Start with a playbook <Route size={16}/></Link>
           </div>
-          <div className="in in-3 mt-6 panel p-3 flex items-center gap-2 font-mono text-[13px] max-w-xl"><Terminal size={15} className="text-ember shrink-0"/><span className="truncate text-muted">npx skills add andos-public/Andox-skill</span><span className="ml-auto"><Copy text="npx skills add andos-public/Andox-skill" label="Copy" variant="!min-h-8 !px-2.5 text-xs"/></span></div>
+          <div className="in in-3 mt-6 panel p-3 flex items-center gap-2 font-mono text-[13px] max-w-xl"><Terminal size={15} className="text-ember shrink-0"/><span className="truncate text-muted">curl -sL andos-public.github.io/Andox-skill/install.py | python3 - --all</span><span className="ml-auto"><Copy text="curl -sL https://andos-public.github.io/Andox-skill/install.py | python3 - --all" label="Copy" variant="!min-h-8 !px-2.5 text-xs"/></span></div>
         </div>
-        <div className="in in-2 panel p-4 sm:p-5 bg-bg2">
+        <div className="in in-2 panel p-4 sm:p-5 bg-bg2 hidden sm:block">
           <div className="flex items-center gap-1.5 mb-3"><span className="size-2.5 rounded-full bg-line"/><span className="size-2.5 rounded-full bg-line"/><span className="size-2.5 rounded-full bg-line"/><span className="mono ml-2">agent session · andox</span></div>
           <Typer/>
         </div>
@@ -30,12 +32,12 @@ export default function Home() {
     </section>
 
     <section className="mx-auto max-w-7xl px-4 py-10">
-      <div className="flex items-end justify-between mb-4"><div><div className="mono">01 — browse</div><h2 className="text-xl sm:text-2xl font-bold tracking-tight mt-1">Six shelves, every skill has a home</h2></div><Link href="/skills/" className="text-sm font-semibold text-ember hidden sm:block">All skills →</Link></div>
+      <div className="flex items-end justify-between mb-4"><div><div className="mono">01 — browse</div><h2 className="text-xl sm:text-2xl font-bold tracking-tight mt-1">Six shelves, every skill has a home</h2></div><Link href="/categories/" className="text-sm font-semibold text-ember hidden sm:block">All categories →</Link></div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {CATEGORIES.map((c, i) => (
-          <Link key={c} href={`/skills/?cat=${encodeURIComponent(c)}`} className="panel panel-hover p-4 sm:p-5 flex gap-4">
-            <div className="mono pt-1 w-7">{String(i+1).padStart(2,"0")}</div>
-            <div className="min-w-0 flex-1"><div className="flex items-center justify-between"><span className="font-bold">{CAT_META[c].icon} {c}</span><span className="tag">{counts[c]}</span></div><p className="mt-1.5 text-sm text-muted">{CAT_META[c].blurb}</p></div>
+          <Link key={c} href={`/categories/${CAT_META[c].slug}/`} className="panel panel-hover p-4 sm:p-5 flex gap-3.5">
+            <CatBadge cat={c} size={40}/>
+            <div className="min-w-0 flex-1"><div className="flex items-center justify-between"><span className="font-bold">{c} <span className="mono ml-1">{String(i+1).padStart(2,"0")}</span></span><span className="tag">{counts[c]}</span></div><p className="mt-1.5 text-sm text-muted">{CAT_META[c].blurb}</p></div>
           </Link>))}
       </div>
     </section>
@@ -59,7 +61,7 @@ export default function Home() {
     <section className="mx-auto max-w-7xl px-4 py-10">
       <div className="flex items-end justify-between mb-4"><div><div className="mono">04 — most useful first</div><h2 className="text-xl sm:text-2xl font-bold tracking-tight mt-1">Start here</h2></div></div>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {featured.map(s => (<Link key={s.slug} href={`/skills/${s.slug}/`} className="panel panel-hover p-4 flex flex-col"><div className="flex items-center justify-between gap-2"><span className="tag">{CAT_META[s.category]?.icon} {s.pack}</span><span className="mono">★ {s.stars}</span></div><div className="mt-3 font-bold">{s.name}</div><p className="mt-1 text-sm text-muted line-clamp-3">{s.description}</p></Link>))}
+        {featured.map(s => (<Link key={s.slug} href={`/skills/${s.slug}/`} className="panel panel-hover p-4 flex flex-col"><div className="flex items-center justify-between gap-2"><span className="tag"><CatIcon cat={s.category} size={12}/> {s.pack}</span><span className="mono flex items-center gap-1"><Star size={11}/> {s.stars}</span></div><div className="mt-3 font-bold">{s.name}</div><p className="mt-1 text-sm text-muted line-clamp-3">{s.description}</p></Link>))}
       </div>
     </section>
 

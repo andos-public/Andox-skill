@@ -4,7 +4,10 @@ import remarkGfm from "remark-gfm";
 import { getSkills, getSkill, getBody, getOutline, whenToUse, difficulty, CAT_META, PLAYBOOKS } from "@/lib/data";
 import Copy from "@/components/Copy";
 import Tabs from "@/components/Tabs";
-import { ExternalLink, FileText, ArrowLeft, Folder, Terminal, Bot, ClipboardList } from "lucide-react";
+import CatIcon from "@/components/CatIcon";
+import Bookmark from "@/components/Bookmark";
+import InstallBox from "@/components/InstallBox";
+import { ExternalLink, FileText, ArrowLeft, Folder, Terminal, Bot, ClipboardList, Star } from "lucide-react";
 export function generateStaticParams() { return getSkills().map(s => ({ slug: s.slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const s = getSkill(slug); return { title: `${s?.name ?? "Skill"} — Andox Skills`, description: s?.description }; }
 export default async function SkillPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -31,7 +34,7 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
         </div></div>
     </div>
     <aside className="space-y-4">
-      <div className="panel p-4"><div className="mono mb-1">Spec</div><Spec k="Category" v={`${CAT_META[s.category]?.icon} ${s.category}`}/><Spec k="Pack" v={s.pack}/><Spec k="Depth" v={<span className="tag">{diff}</span>}/><Spec k="Read time" v={`${s.readMin} min`}/><Spec k="Files" v={s.files.length}/><Spec k="Stars" v={`★ ${s.stars}`}/></div>
+      <div className="panel p-4"><div className="mono mb-1">Spec</div><Spec k="Category" v={<Link href={`/categories/${CAT_META[s.category]?.slug}/`} className="text-ember inline-flex items-center gap-1"><CatIcon cat={s.category} size={13}/>{s.category}</Link>}/><Spec k="Pack" v={s.pack}/><Spec k="Depth" v={<span className="tag">{diff}</span>}/><Spec k="Read time" v={`${s.readMin} min`}/><Spec k="Files" v={s.files.length}/><Spec k="Stars" v={<span className="inline-flex items-center gap-1"><Star size={12}/>{s.stars}</span>}/></div>
       <div className="panel p-4"><div className="mono mb-2">Author</div><div className="font-semibold">{s.author}</div><a href={s.sourceUrl} target="_blank" rel="noreferrer" className="btn w-full mt-3 !min-h-10 text-sm"><ExternalLink size={14}/> Original repo</a><p className="mt-2 text-xs text-muted">Licensed by the original author. Andox adds curation, playbooks and tooling.</p></div>
       <div className="panel p-4"><div className="mono mb-2">Works with</div><div className="flex flex-wrap gap-1">{["Claude Code","Cursor","Codex","Gemini CLI","Copilot","Windsurf","Cline"].map(a => <span key={a} className="tag">{a}</span>)}</div></div>
       {inPlaybooks.length > 0 && <div className="panel p-4"><div className="mono mb-2">In playbooks</div><ul className="space-y-1 text-sm">{inPlaybooks.map(p => <li key={p.id}><Link className="text-ember font-semibold" href={`/playbooks/${p.id}/`}>{p.title}</Link></li>)}</ul></div>}
@@ -47,11 +50,11 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   return (
     <div className="mx-auto max-w-7xl px-4 py-5 sm:py-8">
       <Link href="/skills/" className="text-sm text-muted inline-flex items-center gap-1 hover:text-fg"><ArrowLeft size={14}/> Catalog</Link>
-      <div className="mt-3 flex flex-wrap items-center gap-1.5"><span className="tag tag-ember">{CAT_META[s.category]?.icon} {s.category}</span><span className="tag">{s.pack}</span><span className="tag">{diff}</span><span className="tag">{s.readMin} min</span></div>
+      <div className="mt-3 flex flex-wrap items-center gap-1.5"><Link href={`/categories/${CAT_META[s.category]?.slug}/`} className="tag tag-ember"><CatIcon cat={s.category} size={12}/> {s.category}</Link><span className="tag">{s.pack}</span><span className="tag">{diff}</span><span className="tag">{s.readMin} min</span></div>
       <h1 className="mt-3 text-2xl sm:text-4xl font-extrabold tracking-tight break-words">{s.name}</h1>
       <p className="mt-2 text-muted text-[15px] sm:text-lg max-w-3xl">{s.description}</p>
-      <div className="mt-4 flex gap-2 overflow-x-auto hide-scroll -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap"><Copy text={install} label="Install command" variant="btn-ember"/><Copy text={body} label="SKILL.md"/><Copy text={prompt} label="Agent prompt"/></div>
-      <div className="mt-6"><Tabs tabs={[{id:"o",label:"Overview",content:overview},{id:"d",label:"Full SKILL.md",content:doc},{id:"f",label:`Files (${s.files.length})`,content:files},{id:"r",label:"Related",content:rel}]}/></div>
+      <div className="mt-4 flex gap-2 overflow-x-auto hide-scroll -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap"><Copy text={install} label="Install command" variant="btn-ember"/><Copy text={body} label="SKILL.md"/><Copy text={prompt} label="Agent prompt"/><Bookmark slug={s.slug}/></div>
+      <div className="mt-6"><Tabs tabs={[{id:"o",label:"Overview",content:overview},{id:"i",label:"Install",content:<div className="max-w-2xl"><InstallBox target={`--skill ${s.slug}`} npx={install}/></div>},{id:"d",label:"Full SKILL.md",content:doc},{id:"f",label:`Files (${s.files.length})`,content:files},{id:"r",label:"Related",content:rel}]}/></div>
     </div>
   );
 }
