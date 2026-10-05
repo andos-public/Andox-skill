@@ -8,6 +8,7 @@ import CatIcon from "@/components/CatIcon";
 import Bookmark from "@/components/Bookmark";
 import InstallBox from "@/components/InstallBox";
 import StickyBar from "@/components/StickyBar";
+import Disclosure from "@/components/Disclosure";
 import { ExternalLink, FileText, ArrowLeft, Folder, Terminal, Bot, ClipboardList, Star } from "lucide-react";
 export function generateStaticParams() { return getSkills().map(s => ({ slug: s.slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const s = getSkill(slug); return { title: `${s?.name ?? "Skill"} — Andox Skills`, description: s?.description }; }
@@ -24,20 +25,20 @@ export default async function SkillPage({ params }: { params: Promise<{ slug: st
   const overview = (<div className="grid gap-5 lg:grid-cols-[1fr_300px]">
     <div className="space-y-5">
       <div className="panel p-4 sm:p-5"><div className="mono mb-2">When to use</div><p className="text-[15px] leading-relaxed">{wtu ?? s.description}</p></div>
-      {outline.length > 0 && <div className="panel p-4 sm:p-5"><div className="mono mb-3">How this skill flows</div>
+      {outline.length > 0 && <Disclosure title="How this skill flows" meta={`${outline.filter(o=>o.level===2).length} steps`}>
         <ol className="flow space-y-2 pl-8">{outline.map((o,i) => <li key={i} className={"relative " + (o.level===3?"ml-4 text-sm text-muted":"font-medium")}><span className={"absolute -left-8 top-1 size-6 grid place-items-center rounded-md border border-line bg-bg2 text-[11px] font-mono " + (o.level===2?"text-ember border-ember/40":"")}>{o.level===2?String(outline.slice(0,i+1).filter(x=>x.level===2).length):"·"}</span>{o.text}</li>)}</ol>
-        <p className="mono mt-4">auto-generated from SKILL.md headings</p></div>}
-      <div className="panel p-4 sm:p-5"><div className="mono mb-3">Use it in 10 seconds</div>
+        <p className="mono mt-4">auto-generated from SKILL.md headings</p></Disclosure>}
+      <Disclosure title="Use it in 10 seconds" meta="3 ways">
         <div className="grid gap-2 sm:grid-cols-3">
           <div className="rounded-xl border border-line p-3"><Terminal size={16} className="text-ember"/><div className="font-semibold text-sm mt-2">Install</div><p className="text-xs text-muted mt-1">One command, any agent CLI.</p><div className="mt-2"><Copy text={install} label="Copy command" variant="!min-h-9 !px-2.5 text-xs w-full"/></div></div>
           <div className="rounded-xl border border-line p-3"><ClipboardList size={16} className="text-ember"/><div className="font-semibold text-sm mt-2">Paste</div><p className="text-xs text-muted mt-1">Drop the full SKILL.md into context.</p><div className="mt-2"><Copy text={body} label="Copy SKILL.md" variant="!min-h-9 !px-2.5 text-xs w-full"/></div></div>
           <div className="rounded-xl border border-line p-3"><Bot size={16} className="text-ember"/><div className="font-semibold text-sm mt-2">Prompt</div><p className="text-xs text-muted mt-1">Ready-made instruction for your agent.</p><div className="mt-2"><Copy text={prompt} label="Copy prompt" variant="!min-h-9 !px-2.5 text-xs w-full"/></div></div>
-        </div></div>
+        </div></Disclosure>
     </div>
     <aside className="space-y-4">
-      <div className="panel p-4"><div className="mono mb-1">Spec</div><Spec k="Category" v={<Link href={`/categories/${CAT_META[s.category]?.slug}/`} className="text-ember inline-flex items-center gap-1"><CatIcon cat={s.category} size={13}/>{s.category}</Link>}/><Spec k="Pack" v={s.pack}/><Spec k="Depth" v={<span className="tag">{diff}</span>}/><Spec k="Read time" v={`${s.readMin} min`}/><Spec k="Files" v={s.files.length}/><Spec k="GitHub stars" v={<span className="inline-flex items-center gap-1" title="Stars of the original source repo"><Star size={12} className="text-ember"/>{s.stars}</span>}/></div>
-      <div className="panel p-4"><div className="mono mb-2">Author</div><div className="font-semibold">{s.author}</div><a href={s.sourceUrl} target="_blank" rel="noreferrer" className="btn w-full mt-3 !min-h-10 text-sm"><ExternalLink size={14}/> Original repo</a><p className="mt-2 text-xs text-muted">Licensed by the original author. Andox adds curation, playbooks and tooling.</p></div>
-      <div className="panel p-4"><div className="mono mb-2">Works with</div><div className="flex flex-wrap gap-1">{["Claude Code","Cursor","Codex","Gemini CLI","Copilot","Windsurf","Cline"].map(a => <span key={a} className="tag">{a}</span>)}</div></div>
+      <Disclosure title="Spec" mobileOpen><div className="-mt-2"><Spec k="Category" v={<Link href={`/categories/${CAT_META[s.category]?.slug}/`} className="text-ember inline-flex items-center gap-1"><CatIcon cat={s.category} size={13}/>{s.category}</Link>}/><Spec k="Pack" v={s.pack}/><Spec k="Depth" v={<span className="tag">{diff}</span>}/><Spec k="Read time" v={`${s.readMin} min`}/><Spec k="Files" v={s.files.length}/><Spec k="GitHub stars" v={<span className="inline-flex items-center gap-1" title="Stars of the original source repo"><Star size={12} className="text-ember"/>{s.stars}</span>}/></div></Disclosure>
+      <Disclosure title="Author & license"><div><div className="font-semibold">{s.author}</div><a href={s.sourceUrl} target="_blank" rel="noreferrer" className="btn w-full mt-3 !min-h-10 text-sm"><ExternalLink size={14}/> Original repo</a><p className="mt-2 text-xs text-muted">Licensed by the original author. Andox adds curation, playbooks and tooling.</p></div></Disclosure>
+      <Disclosure title="Works with" desktopOpen={false}><div className="flex flex-wrap gap-1">{["Claude Code","Cursor","Codex","Gemini CLI","Copilot","Windsurf","Cline"].map(a => <span key={a} className="tag">{a}</span>)}</div></Disclosure>
       {inPlaybooks.length > 0 && <div className="panel p-4"><div className="mono mb-2">In playbooks</div><ul className="space-y-1 text-sm">{inPlaybooks.map(p => <li key={p.id}><Link className="text-ember font-semibold" href={`/playbooks/${p.id}/`}>{p.title}</Link></li>)}</ul></div>}
     </aside>
   </div>);

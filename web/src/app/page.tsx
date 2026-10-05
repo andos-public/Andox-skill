@@ -6,6 +6,7 @@ import Typer from "@/components/Typer";
 import CatIcon, { CatBadge } from "@/components/CatIcon";
 import SkillCard from "@/components/SkillCard";
 import { T } from "@/lib/i18n";
+import Disclosure from "@/components/Disclosure";
 export default function Home() {
   const skills = getSkills();
   const counts = Object.fromEntries(CATEGORIES.map(c => [c, skills.filter(s => s.category === c).length]));
@@ -13,8 +14,8 @@ export default function Home() {
   const featured = ["mattpocock--grill-me","ponytail--ponytail","superpowers--test-driven-development","gstack--design-review","trailofbits--differential-review","emilkowalski--animate","strix--owasp-top-10-testing","frontend-checklist--frontend-checklist-global"].map(s => skills.find(x => x.slug === s)!).filter(Boolean);
   const py = "curl -sL https://andos-public.github.io/Andox-skill/install.py | python3 - --all";
   return (<>
-    <section className="relative overflow-hidden border-b border-line">
-      <div className="absolute inset-0 grid-bg pointer-events-none"/>
+    <section className="relative overflow-hidden border-b border-line noise">
+      <div className="absolute inset-0 dots pointer-events-none"/>
       <div className="relative wrap pt-10 pb-10 sm:pt-28 sm:pb-24 grid lg:grid-cols-[1.05fr_.95fr] gap-10 lg:gap-16 items-center">
         <div>
           <div className="in mono flex items-center gap-2"><span className="size-1.5 rounded-full bg-ember"/> {skills.length} skills · {packs} packs · {PLAYBOOKS.length} playbooks</div>
@@ -36,7 +37,7 @@ export default function Home() {
     <section className="wrap py-8 sm:py-14">
       <div className="flex items-end justify-between mb-4"><div><div className="mono"><T k="s1"/></div><h2 className="text-xl sm:text-2xl font-bold tracking-tight mt-1"><T k="s1h"/></h2></div><Link href="/categories/" className="text-sm font-semibold text-ember hidden sm:block"><T k="allCats"/></Link></div>
       {/* mobile: horizontal snap row; desktop: 3-col grid */}
-      <div className="flex gap-3 overflow-x-auto hide-scroll -mx-4 px-4 pb-1 snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:mx-0 sm:px-0">
+      <div className="stagger flex gap-3 overflow-x-auto hide-scroll -mx-4 px-4 pb-1 snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:mx-0 sm:px-0">
         {CATEGORIES.map((c, i) => (
           <Link key={c} href={`/categories/${CAT_META[c].slug}/`} className="panel panel-hover p-4 sm:p-5 flex gap-3.5 min-w-[260px] sm:min-w-0 snap-start">
             <CatBadge cat={c} size={40}/>
@@ -70,7 +71,8 @@ export default function Home() {
 
     <section className="wrap py-10 sm:py-14">
       <div className="flex items-end justify-between mb-4"><div><div className="mono"><T k="s4"/></div><h2 className="text-xl sm:text-2xl font-bold tracking-tight mt-1"><T k="s4h"/></h2></div><span className="mono hidden sm:flex items-center gap-1"><Star size={11}/> = GitHub stars of source repo</span></div>
-      <div className="grid gap-2 sm:gap-3 sm:grid-cols-2 lg:grid-cols-4">{featured.map(s => <SkillCard key={s.slug} s={{...s, color: CAT_META[s.category].color}}/>)}</div>
+      <div className="grid gap-2 sm:gap-3 sm:grid-cols-2 lg:grid-cols-4 stagger">{featured.slice(0,4).map(s => <SkillCard key={s.slug} s={{...s, color: CAT_META[s.category].color}}/>)}</div>
+      <div className="mt-3"><Disclosure title="More starters" meta={`${featured.length-4} skills`} desktopOpen={false}><div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">{featured.slice(4).map(s => <SkillCard key={s.slug} s={{...s, color: CAT_META[s.category].color}}/>)}</div></Disclosure></div>
     </section>
 
     <section className="wrap py-12">

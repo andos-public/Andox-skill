@@ -3,6 +3,7 @@ import { getSkills, CATEGORIES, CAT_META, catBySlug, PLAYBOOKS, difficulty, GROU
 import CatIcon, { CatBadge } from "@/components/CatIcon";
 import InstallBox from "@/components/InstallBox";
 import Copy from "@/components/Copy";
+import Disclosure from "@/components/Disclosure";
 import { ArrowLeft, ArrowRight, Check, Users, Target } from "lucide-react";
 export function generateStaticParams() { return CATEGORIES.map(c => ({ slug: CAT_META[c].slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const c = catBySlug(slug); return { title: `${c} skills — Andox Skills`, description: c ? CAT_META[c].long : "" }; }
@@ -20,18 +21,18 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
     <Link href="/categories/" className="text-sm text-muted inline-flex items-center gap-1 hover:text-fg"><ArrowLeft size={14}/> Categories</Link>
     <div className="mt-4 flex items-start gap-4"><CatBadge cat={c} size={56}/>
       <div className="min-w-0"><div className="mono">category · {list.length} skills · {packs.length} packs</div><h1 className="mt-1 text-2xl sm:text-4xl font-extrabold tracking-tight">{c}</h1></div></div>
-    <p className="mt-4 text-[15px] sm:text-lg text-muted max-w-3xl">{m.long}</p>
+    <p className="mt-4 text-[15px] sm:text-lg text-muted max-w-3xl line-clamp-3 sm:line-clamp-none">{m.long}</p>
     <div className="mt-5 grid grid-cols-3 sm:grid-cols-6 gap-2">
       {[["Skills",list.length],["Packs",packs.length],["Reading",`~${Math.round(mins/60)}h`],["Quick",depth.Quick],["Standard",depth.Standard],["Deep",depth.Deep]].map(([k,v]) => <div key={k as string} className="panel p-3"><div className="text-xl font-extrabold tabular-nums">{v}</div><div className="mono">{k}</div></div>)}
     </div>
     <div className="mt-6 grid gap-5 lg:grid-cols-[1fr_360px]">
       <div className="space-y-6">
-        <section className="panel p-4 sm:p-5">
+        <Disclosure title="Who it’s for & what you get">
           <div className="grid sm:grid-cols-2 gap-5">
             <div><div className="mono flex items-center gap-1.5 mb-2"><Users size={13}/> Who it’s for</div><p className="text-sm">{m.forWho}</p></div>
             <div><div className="mono flex items-center gap-1.5 mb-2"><Target size={13}/> What you get</div><ul className="text-sm space-y-1.5">{m.outcomes.map(o => <li key={o} className="flex gap-2"><Check size={15} className="text-ember shrink-0 mt-0.5"/>{o}</li>)}</ul></div>
           </div>
-        </section>
+        </Disclosure>
         <section><div className="flex items-end justify-between mb-3"><h2 className="font-bold text-lg">Start here</h2><span className="mono">recommended order</span></div>
           <ol className="flow space-y-2 pl-9">{start.map((s,i) => <li key={s.slug} className="relative"><span className="absolute -left-9 top-3 size-6 grid place-items-center rounded-md bg-ember text-black text-xs font-bold font-mono">{i+1}</span><Link href={`/skills/${s.slug}/`} className="panel panel-hover p-3.5 block"><div className="flex items-center justify-between gap-2"><span className="font-semibold">{s.name}</span><span className="tag">{difficulty(s.words)} · {s.readMin}m</span></div><p className="text-sm text-muted mt-1 line-clamp-2">{s.description}</p></Link></li>)}</ol>
         </section>
