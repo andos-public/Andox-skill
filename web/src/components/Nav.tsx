@@ -11,8 +11,7 @@ const TABS = [["/","home",IHome],["/categories/","explore",IExplore],["/skills/"
 export default function Nav() {
   const p = usePathname() || "/"; const { t } = useT();
   const is = (h: string) => h === "/" ? p === "/" : p.startsWith(h);
-  const idx = Math.max(0, TABS.findIndex(([h]) => is(h)));
-  const openPalette = () => window.dispatchEvent(new Event("andox:palette"));
+    const openPalette = () => window.dispatchEvent(new Event("andox:palette"));
   return (<>
     <header className="sticky top-0 z-40 glass">
       <div className="wrap h-14 flex items-center justify-between gap-3">
@@ -26,10 +25,9 @@ export default function Nav() {
         </div>
       </div>
     </header>
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 px-3 pointer-events-none" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 10px)" }}>
-      <div className="pointer-events-auto relative grid grid-cols-5 h-[64px] rounded-[22px] glass-strong shadow-[0_12px_40px_-12px_rgba(0,0,0,.6)]">
-        <span className="absolute top-1.5 bottom-1.5 w-[calc(20%-6px)] left-[3px] rounded-2xl bg-ember-soft transition-transform duration-300 ease-[cubic-bezier(.2,.8,.2,1)]" style={{ transform: `translateX(calc(${idx} * (100% + 6px)))` }}/>
-        {TABS.map(([h,k,I]) => { const on = is(h); return (<Link key={k} href={h} className={"relative z-10 flex flex-col items-center justify-center gap-0.5 text-[10.5px] font-semibold min-h-[44px] transition-colors " + (on ? "text-ember" : "text-muted")}><I size={23} active={on} className={on ? "tab-pop" : ""}/>{t(k)}</Link>); })}
+    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-bg2 border-t border-line" style={{ paddingBottom: "env(safe-area-inset-bottom)" }}>
+      <div className="grid grid-cols-5 h-[58px]">
+        {TABS.map(([h,k,I]) => { const on = is(h); return (<Link key={k} href={h} className={"relative flex flex-col items-center justify-center gap-[3px] text-[11px] font-medium min-h-[44px] press " + (on ? "text-ember" : "text-muted")}>{on && <span className="absolute top-0 h-[2px] w-8 rounded-b bg-ember"/>}<I size={24} active={on}/>{t(k)}</Link>); })}
       </div>
     </nav>
   </>);
