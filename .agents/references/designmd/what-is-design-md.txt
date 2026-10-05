@@ -1,0 +1,118 @@
+What is DESIGN.md? | DESIGN.md
+
+What is DESIGN.md?
+
+The portable, markdown-based format for design systems — built for AI-native development.
+
+A design system in a single file
+
+DESIGN.md
+ is a markdown file that captures everything an AI coding tool needs to build consistent UIs: colors, typography, spacing, component patterns, and more — all in plain text.
+
+The DESIGN.md format was created by Google as part of 
+Google Stitch
+. It's designed to be the bridge between design intent and AI-generated code.
+
+Unlike Figma files or design tokens in JSON, DESIGN.md is human-readable, version-controllable, and consumable by any AI coding agent. Drop a DESIGN.md file into your project root and your AI assistant can immediately build UI that follows your design system.
+
+What goes inside a DESIGN.md?
+
+A typical DESIGN.md includes sections like:
+
+Colors
+
+Primary palette, neutrals, and semantic colors with hex codes and usage guidance.
+
+Typography
+
+Font families, sizes, weights, line heights, and when to use each style.
+
+Spacing
+
+Base unit and scale values for consistent padding, margins, and gaps.
+
+Components
+
+Button variants, input styles, card patterns with specific dimensions and colors.
+
+Elevation
+
+Shadow levels, glow effects, and depth cues for layered interfaces.
+
+Guidelines
+
+Do's and don'ts, tone of voice, and design principles.
+
+Why does it matter?
+
+1
+
+AI agents understand it natively
+
+Plain markdown is what LLMs read best. No parsing libraries, no schema validation — just drop it in and your AI builds pixel-perfect UI.
+
+2
+
+Version-controllable
+
+It's a text file. Put it in git, review changes in PRs, track design decisions over time.
+
+3
+
+Tool-agnostic
+
+Works with Claude Code, Cursor, Antigravity, Copilot, or any tool that reads project files. No vendor lock-in.
+
+4
+
+Human-readable
+
+Designers and developers can both read and edit it. No proprietary formats, no special tools needed.
+
+How to use it
+
+1
+
+Find a design system
+
+Browse 
+DESIGNmd
+ for community-created design systems, or write your own.
+
+2
+
+Drop it into your project root
+
+Save the file as 
+DESIGN.md
+ in your project's root directory.
+
+3
+
+Start building
+
+Ask your AI coding agent to build UI. It will automatically read the DESIGN.md and follow your design system.
+
+Example
+
+# My App Design System
+
+## Colors
+- **Primary** (#6366F1): Main brand color for buttons and links
+- **Background** (#FFFFFF): Page background
+- **Surface** (#F8FAFC): Cards and elevated surfaces
+- **Text Primary** (#0F172A): Main text color
+
+## Typography
+- **Headline**: Inter, 32px, Bold
+- **Body**: Inter, 16px, Regular
+
+## Components
+- **Buttons**: Primary filled (bg #6366F1, white text, 8px radius)
+- **Cards**: White bg, 1px #E2E8F0 border, 12px radius, 16px padding
+
+Ready to try it?
+
+Browse Design Systems
+
+Install the MCP

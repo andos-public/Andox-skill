@@ -1,0 +1,40 @@
+
+15 result(s)  (420 total)
+
+  Genesis  chef/genesis
+  An editorial precision interface for a community platform where developers discover, share, and download design system files. The aesthetic is quietly confident — bold display typography, generous spacing, and gallery-frame card surfaces. The mood is professional and modern without being sterile. High information density balanced by breathing room.
+  10828 downloads · 36 likes [accessible, blue, clean, saas]
+  https://designmd.ai/chef/genesis
+
+  Flip7 Card Game  yiujc/flip7-card-game
+  Retro-playful teal-coral-gold design system for the Flip7 card game scoring mini-program. Features packaging-inspired logo with fan cards and parallelogram, folded ribbon banners, colored glow shadows, and tiered victory rankings.
+  6127 downloads · 27 likes [bold, gaming, mobile-app, playful, warm]
+  https://designmd.ai/yiujc/flip7-card-game
+
+  DESIGN.md - Sistema de Monitoreo Eléctrico "WattVision"  groquispe100inf-max/design-md-sistema-de-monitoreo-el-ctrico-wattvision
+  El diseño debe transmitir confiabilidad técnica y control. No debe sentirse como una red social o una app de juegos. La interfaz está pensada para ser vista en una laptop o tablet en un entorno doméstico o de pequeño negocio en Bolivia. El ambiente es "Power BI Dashboard" pero simplificado para el usuario final.
+  5147 downloads · 14 likes [bold, dark, dashboard, devtools, mobile-app]
+  https://designmd.ai/groquispe100inf-max/design-md-sistema-de-monitoreo-el-ctrico-wattvision
+
+  Verdana Health Design System  chef/verdana-health-design-system
+  Verdana Health is a calm, trustworthy design system built for digital health platforms, telehealth dashboards, and patient-facing wellness applications. Its foundation of deep navy and soft sage greens evokes clinical precision tempered by warmth. The system prioritizes readability, accessibility, and a sense of reassurance across every touchpoint.
+  3155 downloads · 19 likes [accessible, digital-health, elegant, saas]
+  https://designmd.ai/chef/verdana-health-design-system
+
+  VoiceBox  chef/voicebox
+  Bold, opinionated, magazine-style.
+  2532 downloads · 17 likes [blog, bold, dark, devtools, mobile-app]
+  https://designmd.ai/chef/voicebox
+
+  Journey UI  chef/questui
+  Journey UI is a fantasy-inspired, ornate, RPG-styled design system built for RPG game interfaces and fantasy gaming platforms. Rich golds, deep reds, and royal purples evoke the grandeur of medieval kingdoms and enchanted realms. Every element carries weight and craftsmanship.
+  2523 downloads · 9 likes [bold, dark, gaming, playful, premium]
+  https://designmd.ai/chef/questui
+
+  RawBlock  chef/rawblock
+  RawBlock is an unapologetic, anti-design system that strips interfaces down to their structural bones. Built for experimental portfolios and avant-garde art sites, it embraces thick borders, system-level aesthetics, and the raw power of black-on-white. This is brutalism as a design language.
+  2263 downloads · 25 likes [bold, brutalist, experimental, minimal, portfolio]
+  https://designmd.ai/chef/rawblock
+
+  Command Center  frknaykc/command-center
+  version: alpha name: Evreghen Command Center description: "Warm off-white security workspace with a dark frosted application shell and orange telemetry accents." colors: background: "#fcfaf7" on-background: "#423d38" surface: "#f3f4f6" surface-soft: "#edebe9" surface-elevated: "#ffffff" on-surface: "#423d38" on-surface-muted: "#797067" outline: "#e3e0dd" outline-strong: "#d1d5dc" primary: "#fe6e00" primary-strong: "#ff6b00" primary-warm: "#ffb74d" primary-focus: "#f97015" on-primary: "#ffffff" s
