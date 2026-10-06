@@ -1,7 +1,8 @@
-// Icon set: Tabler Icons (MIT, https://tabler.io/icons)
-import { IconHome2, IconCompass, IconCompassFilled, IconSearch, IconRoute2, IconBookmark, IconBookmarkFilled, IconBrain, IconPalette, IconShieldCheck, IconAtom2, IconFileText, IconTelescope, IconStack2, IconChevronDown, IconSparkles, IconHeart, IconHeartFilled, IconLayoutGrid, type IconProps } from "@tabler/icons-react";
-type P = { size?: number; className?: string; active?: boolean; style?: React.CSSProperties };
-const mk = (R: React.ComponentType<IconProps>, F?: React.ComponentType<IconProps>) => function I({ size = 22, className = "", active = false, style }: P) { const C = active && F ? F : R; return <C size={size} stroke={active ? 2.2 : 1.75} className={className} style={style} aria-hidden/>; };
-export const IHome = mk(IconHome2); export const IExplore = mk(IconCompass, IconCompassFilled); export const ICatalog = mk(IconLayoutGrid); export const IPlaybook = mk(IconRoute2); export const ISaved = mk(IconBookmark, IconBookmarkFilled); export const IHeart = mk(IconHeart, IconHeartFilled); export const ISearch = mk(IconSearch);
-export const IBrain = mk(IconBrain); export const IPalette = mk(IconPalette); export const IShield = mk(IconShieldCheck); export const IAtom = mk(IconAtom2); export const IDoc = mk(IconFileText); export const IScan = mk(IconTelescope); export const ILayers = mk(IconStack2);
-export const IChevron = mk(IconChevronDown); export const ISpark = mk(IconSparkles);
+// Icon system per ui-ux-pro-max guidance: Phosphor Icons (MIT). regular = idle, fill = active, duotone = category tiles.
+import { House, Compass, MagnifyingGlass, Path, BookmarkSimple, Heart, Brain, PaintBrush, ShieldCheck, Atom, FileText, Binoculars, Stack, CaretDown, Sparkle, SquaresFour } from "@phosphor-icons/react/dist/ssr";
+import type { IconProps, IconWeight } from "@phosphor-icons/react";
+type P = { size?: number; className?: string; active?: boolean; style?: React.CSSProperties; weight?: IconWeight };
+const mk = (I: React.ComponentType<IconProps>, activeWeight: IconWeight = "fill") => function Icon({ size = 22, className = "", active = false, style, weight }: P) { return <I size={size} weight={weight ?? (active ? activeWeight : "regular")} className={className} style={style} aria-hidden/>; };
+export const IHome = mk(House); export const IExplore = mk(Compass); export const ISearch = mk(MagnifyingGlass, "bold"); export const IPlaybook = mk(Path); export const ISaved = mk(BookmarkSimple); export const IHeart = mk(Heart); export const ICatalog = mk(SquaresFour);
+export const IBrain = mk(Brain, "duotone"); export const IPalette = mk(PaintBrush, "duotone"); export const IShield = mk(ShieldCheck, "duotone"); export const IAtom = mk(Atom, "duotone"); export const IDoc = mk(FileText, "duotone"); export const IScan = mk(Binoculars, "duotone"); export const ILayers = mk(Stack, "duotone");
+export const IChevron = mk(CaretDown, "bold"); export const ISpark = mk(Sparkle);

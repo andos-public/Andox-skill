@@ -2,7 +2,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 :root{--bg:#f6f6f7;--bg2:#ffffff;--fg:#111214;--muted:#5f636b;--line:#e3e4e8;--ember:#e8640f;--ember-soft:#fff1e8;--steel:#9aa0a8;--code:#f0f0f2}
 .dark{--bg:#0b0b0d;--bg2:#121316;--fg:#ececee;--muted:#8b8f98;--line:#222429;--ember:#ff8a2a;--ember-soft:#2a1709;--steel:#6b7078;--code:#0f1012}
-@theme inline{--color-bg:var(--bg);--color-bg2:var(--bg2);--color-fg:var(--fg);--color-muted:var(--muted);--color-line:var(--line);--color-ember:var(--ember);--color-ember-soft:var(--ember-soft);--color-steel:var(--steel);--font-sans:var(--font-geist-sans);--font-mono:var(--font-geist-mono)}
+@theme inline{--color-bg:var(--bg);--color-bg2:var(--bg2);--color-fg:var(--fg);--color-muted:var(--muted);--color-line:var(--line);--color-ember:var(--ember);--color-ember-soft:var(--ember-soft);--color-steel:var(--steel);--font-sans:var(--font-geist-sans);--font-mono:var(--font-geist-mono);--font-serif:var(--font-serif)}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--fg);background-image:radial-gradient(900px 420px at 50% -120px,color-mix(in oklab,var(--ember) 16%,transparent),transparent 70%);background-attachment:scroll;background-repeat:no-repeat;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv11","tnum"}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -76,3 +76,10 @@ h1,h2,h3{text-wrap:balance}p{text-wrap:pretty}
 @media (max-width:767px){main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}}
 /* mobile overflow guards (layered so utilities like min-w-[260px] still win) */
 @layer base{.grid>*,.flex>a,.flex>div,.flex>span.truncate{min-width:0}pre,code,kbd{max-width:100%}img,svg,video{max-width:100%}html,body{overflow-x:hidden;max-width:100vw}}
+
+/* Type system (ui-ux-pro-max "Inter system" + Claude-style serif display) */
+h1,.display{font-family:var(--font-serif),Georgia,serif;font-weight:600;letter-spacing:-.015em}
+h2{font-family:var(--font-serif),Georgia,serif;font-weight:600;letter-spacing:-.01em}
+h3,.font-bold,.font-semibold,.font-extrabold{letter-spacing:-.01em}
+.mono{font-weight:500;letter-spacing:.08em}
+body{font-feature-settings:"cv11","ss01","tnum";letter-spacing:-.005em}

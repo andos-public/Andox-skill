@@ -32,7 +32,7 @@ export default function Nav() {
         <Tab h="/" k="home" I={IHome} on={is("/")}/>
         <Tab h="/categories/" k="explore" I={IExplore} on={explore}/>
         <Link href="/search/" aria-label={t("search")} className={"relative flex flex-col items-center justify-end pb-1 text-[10.5px] font-semibold " + (is("/search/") ? "text-ember" : "text-muted")}>
-          <span className={"absolute -top-5 grid place-items-center size-14 rounded-full text-black shadow-[0_8px_24px_-8px_var(--ember)] ring-4 ring-bg press transition-transform " + (is("/search/") ? "bg-ember scale-105" : "bg-ember")}><ISearch size={26} active/></span>
+          <span className={"absolute -top-5 grid place-items-center size-14 rounded-full text-black shadow-[0_8px_24px_-8px_var(--ember)] ring-4 ring-bg press transition-transform " + (is("/search/") ? "bg-ember scale-105" : "bg-ember")}><ISearch size={26} weight="bold"/></span>
           <span className="mt-auto">{t("search")}</span>
         </Link>
         <Tab h="/playbooks/" k="playbooks" I={IPlaybook} on={is("/playbooks/")}/>

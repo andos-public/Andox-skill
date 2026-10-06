@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
-import { IconMoon as Moon, IconSun as Sun, IconDeviceMobile as MonitorSmartphone, IconAdjustmentsHorizontal as SlidersHorizontal, IconX as X } from "@tabler/icons-react";
+import { Moon, Sun, DeviceMobile as MonitorSmartphone, SlidersHorizontal, X } from "@phosphor-icons/react/dist/ssr";
 import { useT } from "@/lib/i18n";
 export default function Settings() {
   const [open, setOpen] = useState(false); const { lang, setLang } = useT();
   const pref = typeof localStorage !== "undefined" ? (localStorage.getItem("theme") || "system") : "system";
   const setTheme = (m: "system"|"dark"|"light") => { if (m === "system") { localStorage.removeItem("theme"); document.documentElement.classList.toggle("dark", matchMedia("(prefers-color-scheme: dark)").matches); } else { localStorage.setItem("theme", m); document.documentElement.classList.toggle("dark", m === "dark"); } setOpen(false); };
   return (<>
-    <button onClick={() => setOpen(true)} aria-label="Settings" className="grid place-items-center size-11 rounded-full text-fg press"><SlidersHorizontal size={26} stroke={1.75}/></button>
+    <button onClick={() => setOpen(true)} aria-label="Settings" className="grid place-items-center size-11 rounded-full text-fg press"><SlidersHorizontal size={26}/></button>
     {open && <div className="fixed inset-0 z-[70] md:hidden" role="dialog" aria-modal><div className="absolute inset-0 bg-black/60" onClick={() => setOpen(false)}/>
       <div className="absolute bottom-0 inset-x-0 panel !rounded-b-none p-5" style={{ paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom))" }}>
         <div className="flex items-center justify-between mb-4"><div className="font-bold">Settings</div><button onClick={() => setOpen(false)} className="btn !px-3"><X size={18}/></button></div>

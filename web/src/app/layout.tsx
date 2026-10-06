@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Manrope, JetBrains_Mono, Noto_Sans_Devanagari } from "next/font/google";
+import { Inter, Source_Serif_4, JetBrains_Mono, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Link from "next/link";
 import CommandPalette, { type Idx } from "@/components/CommandPalette";
 import { LangProvider } from "@/lib/i18n";
 import { getSkills, PLAYBOOKS, CATEGORIES, CAT_META } from "@/lib/data";
-const geistSans = Manrope({ variable: "--font-geist-sans", subsets: ["latin"], weight: ["400","500","600","700","800"] });
+const geistSans = Inter({ variable: "--font-geist-sans", subsets: ["latin"] });
+const serif = Source_Serif_4({ variable: "--font-serif", subsets: ["latin"], weight: ["400","500","600","700"], style: ["normal","italic"] });
 const geistMono = JetBrains_Mono({ variable: "--font-geist-mono", subsets: ["latin"], weight: ["400","500","600"] });
 const deva = Noto_Sans_Devanagari({ variable: "--font-deva", subsets: ["devanagari"], weight: ["400","600","700"] });
 export const metadata: Metadata = { title: "Andox Skills — give your AI agent superpowers", description: "A curated, organised library of 200+ agent skills with playbooks for building websites, secure auth and polished UI." };
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('theme');var d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d);if(!t)matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){document.documentElement.classList.toggle('dark',e.matches)})}catch(e){}` }}/></head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${deva.variable} font-sans min-h-screen flex flex-col`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${deva.variable} ${serif.variable} font-sans min-h-screen flex flex-col`}>
         <LangProvider>
           <Nav/>
           <main className="flex-1 md:pb-0">{children}</main>

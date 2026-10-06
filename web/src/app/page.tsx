@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { getSkills, CATEGORIES, CAT_META, PLAYBOOKS } from "@/lib/data";
-import { IconArrowRight, IconLayoutGrid, IconPackage, IconBook, IconTerminal2, IconFlask, IconRulerMeasure, IconShieldSearch, IconPlayerPlay, IconBug, IconSparkles, IconListCheck } from "@tabler/icons-react";
+import { ArrowRight as IconArrowRight, SquaresFour as IconLayoutGrid, Package as IconPackage, BookOpen as IconBook, Terminal as IconTerminal2, Flask as IconFlask, Ruler as IconRulerMeasure, ShieldWarning as IconShieldSearch, Play as IconPlayerPlay, Bug as IconBug, Sparkle as IconSparkles, ListChecks as IconListCheck } from "@phosphor-icons/react/dist/ssr";
 import CatIcon, { catColor } from "@/components/CatIcon";
 import Bookmark from "@/components/Bookmark";
 import SearchTrigger from "@/components/SearchTrigger";
 import Copy from "@/components/Copy";
 import { T } from "@/lib/i18n";
-const START: [string, string, React.ComponentType<{size?:number; stroke?:number}>, string][] = [
+const START: [string, string, React.ComponentType<{size?:number; weight?:"duotone"|"regular"|"fill"}>, string][] = [
   ["mattpocock--grill-me", "Challenge assumptions. Find blind spots.", IconTerminal2, "#8b7cf6"],
   ["superpowers--test-driven-development", "Write tests. Then build.", IconFlask, "#fbbf24"],
   ["gstack--design-review", "Critique and improve.", IconRulerMeasure, "#38bdf8"],
@@ -24,7 +24,7 @@ export default function Home() {
     {/* HERO */}
     <section className="relative">
       <div className="absolute inset-x-0 -top-24 h-72 pointer-events-none" style={{ background: "radial-gradient(60% 70% at 50% 0%, color-mix(in oklab, var(--ember) 18%, transparent), transparent 70%)" }}/>
-      <h1 className="relative text-[2.1rem] leading-[1.1] sm:text-6xl lg:text-7xl font-extrabold tracking-tight"><T k="hero1"/><br/><span className="text-ember"><T k="hero2"/></span></h1>
+      <h1 className="relative text-[2.35rem] leading-[1.08] sm:text-6xl lg:text-7xl"><T k="hero1"/><br/><em className="text-ember not-italic"><T k="hero2"/></em></h1>
       <div className="relative mt-5 sm:max-w-2xl"><SearchTrigger label={`Search ${skills.length} skills…`}/></div>
       <div className="relative mt-3 flex gap-2 flex-wrap">{[[IconLayoutGrid, `${skills.length}`, "skills"],[IconPackage, `${packs}`, "packs"],[IconBook, `${PLAYBOOKS.length}`, "playbooks"]].map(([I, n, l], i) => { const Icon = I as React.ElementType; return <span key={i} className="tag !py-1.5 !px-2.5 !text-[11px] !rounded-lg"><Icon size={15} className="text-ember"/> {n as string} <T k={l as string}/></span>; })}</div>
     </section>
@@ -60,7 +60,7 @@ export default function Home() {
       <div className="space-y-3 lg:grid lg:grid-cols-2 lg:gap-3 lg:space-y-0">
         {START.map(([slug, line, I, col]) => { const s = skills.find(x => x.slug === slug); if (!s) return null; return (
           <Link key={slug} href={`/skills/${slug}/`} className="panel panel-hover p-3.5 flex items-center gap-3.5 press">
-            <span className="grid place-items-center size-12 rounded-xl shrink-0 border" style={{ color: col, background: `color-mix(in oklab, ${col} 14%, transparent)`, borderColor: `color-mix(in oklab, ${col} 28%, transparent)` }}><I size={22} stroke={1.75}/></span>
+            <span className="grid place-items-center size-12 rounded-xl shrink-0 border" style={{ color: col, background: `color-mix(in oklab, ${col} 14%, transparent)`, borderColor: `color-mix(in oklab, ${col} 28%, transparent)` }}><I size={24} weight="duotone"/></span>
             <div className="min-w-0 flex-1"><div className="font-bold text-[16px] leading-tight truncate">{s.name}</div><div className="text-muted text-[14px] mt-0.5 truncate">{line}</div></div>
             <Bookmark slug={slug} compact/>
           </Link>); })}

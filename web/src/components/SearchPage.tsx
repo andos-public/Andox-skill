@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Fuse from "fuse.js";
-import { IconSearch, IconX, IconArrowUpLeft, IconHistory, IconTrendingUp, IconAdjustmentsHorizontal, IconArrowRight, IconBook, IconChevronRight } from "@tabler/icons-react";
+import { MagnifyingGlass as IconSearch, X as IconX, ArrowUpLeft as IconArrowUpLeft, ClockCounterClockwise as IconHistory, TrendUp as IconTrendingUp, SlidersHorizontal as IconAdjustmentsHorizontal, ArrowRight as IconArrowRight, BookOpen as IconBook, CaretRight as IconChevronRight } from "@phosphor-icons/react/dist/ssr";
 import CatIcon, { catColor } from "./CatIcon";
 import Bookmark from "./Bookmark";
 import { useT } from "@/lib/i18n";
