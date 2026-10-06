@@ -35,7 +35,7 @@ export default function Home() {
       <div className="flex gap-3 overflow-x-auto hide-scroll -mx-4 px-4 pb-1 snap-x snap-mandatory lg:grid lg:grid-cols-6 lg:overflow-visible lg:mx-0 lg:px-0">
         {CATEGORIES.map(c => { const col = catColor(c); return (
           <Link key={c} href={`/categories/${CAT_META[c].slug}/`} className="panel panel-hover p-4 min-w-[168px] lg:min-w-0 snap-start press">
-            <span className="grid place-items-center size-14 rounded-2xl border" style={{ color: col, background: `color-mix(in oklab, ${col} 14%, transparent)`, borderColor: `color-mix(in oklab, ${col} 30%, transparent)` }}><CatIcon cat={c} size={28}/></span>
+            <span className="relative block h-[96px] -mx-4 -mt-4 mb-1 rounded-t-[13px] overflow-hidden bg-[#121316]">{/* eslint-disable-next-line @next/next/no-img-element */}<img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/ill/${CAT_META[c].slug}.webp`} alt="" width={320} height={96} className="size-full object-cover object-center" loading="lazy"/><span className="absolute left-3 bottom-2 grid place-items-center size-8 rounded-lg" style={{ color: col, background: "rgba(11,11,13,.7)" }}><CatIcon cat={c} size={18}/></span></span>
             <div className="mt-4 text-[18px] font-bold leading-tight">{c}</div>
             <div className="mt-0.5 text-muted text-[14px]">{count(c)} <T k="skills"/> →</div>
           </Link>); })}

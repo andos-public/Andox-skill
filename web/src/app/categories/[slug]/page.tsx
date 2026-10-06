@@ -19,8 +19,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const prompt = `You have the Andox "${c}" skill set installed under .agents/skills/. Before starting any task that touches ${c.toLowerCase()}, list the relevant SKILL.md files, read the ones that apply, and follow them. Start with: ${start.map(s => s.path + "/SKILL.md").join(", ")}.`;
   return (<div className="wrap py-5 sm:py-8">
     <Link href="/categories/" className="text-sm text-muted inline-flex items-center gap-1 hover:text-fg"><ArrowLeft size={14}/> Categories</Link>
-    <div className="mt-4 flex items-start gap-4"><CatBadge cat={c} size={56}/>
-      <div className="min-w-0"><div className="mono">category · {list.length} skills · {packs.length} packs</div><h1 className="mt-1 text-2xl sm:text-4xl font-extrabold tracking-tight">{c}</h1></div></div>
+    <div className="mt-4 panel overflow-hidden relative">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/ill/${m.slug}.webp`} alt="" width={640} height={640} className="absolute right-0 top-0 h-full w-auto opacity-90 pointer-events-none select-none" style={{ maskImage: "linear-gradient(90deg, transparent, #000 35%)" }}/>
+      <div className="relative p-5 sm:p-8 min-h-[150px] sm:min-h-[200px] flex flex-col justify-end max-w-[62%]"><div className="mono">category · {list.length} skills · {packs.length} packs</div><h1 className="mt-1 text-[1.9rem] sm:text-4xl leading-tight">{c}</h1></div>
+    </div>
     <p className="mt-4 text-[15px] sm:text-lg text-muted max-w-3xl line-clamp-3 sm:line-clamp-none">{m.long}</p>
     <div className="mt-5 grid grid-cols-3 sm:grid-cols-6 gap-2">
       {[["Skills",list.length],["Packs",packs.length],["Reading",`~${Math.round(mins/60)}h`],["Quick",depth.Quick],["Standard",depth.Standard],["Deep",depth.Deep]].map(([k,v]) => <div key={k as string} className="panel p-3"><div className="text-xl font-extrabold tabular-nums">{v}</div><div className="mono">{k}</div></div>)}
