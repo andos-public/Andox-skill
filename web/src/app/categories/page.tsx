@@ -9,7 +9,8 @@ export default function Categories() {
     <div className="mono">explore</div>
     <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight mt-1">Six categories. Each one a complete toolkit.</h1>
     <p className="mt-1.5 text-muted text-sm sm:text-base max-w-2xl">Every category has its own page: what it’s for, who it’s for, where to start, and a one-line installer for the whole set.</p>
-    <div className="mt-6 grid gap-3 sm:grid-cols-2">
+    <Link href="/skills/" className="mt-5 panel panel-hover p-4 flex items-center gap-3 press"><span className="grid place-items-center size-11 rounded-xl bg-ember-soft text-ember"><ArrowRight size={20}/></span><span className="flex-1"><span className="block font-bold">Browse the full catalog</span><span className="block text-sm text-muted">{skills.length} skills · filters, sort, grid/list</span></span></Link>
+    <div className="mt-4 grid gap-3 sm:grid-cols-2">
       {CATEGORIES.map(c => { const m = CAT_META[c]; const list = skills.filter(s => s.category === c); const packs = new Set(list.map(s => s.pack)).size; const mins = list.reduce((a,s)=>a+s.readMin,0);
         return (<Link key={c} href={`/categories/${m.slug}/`} className="panel panel-hover p-4 sm:p-5 flex gap-4">
           <CatBadge cat={c} size={44}/>

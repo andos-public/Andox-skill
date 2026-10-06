@@ -23,7 +23,7 @@ export default function Home() {
   return (<div className="wrap pt-5 sm:pt-12 space-y-8 sm:space-y-16">
     {/* HERO */}
     <section className="relative">
-      <div className="absolute -inset-x-6 -top-24 h-72 pointer-events-none" style={{ background: "radial-gradient(60% 70% at 50% 0%, color-mix(in oklab, var(--ember) 18%, transparent), transparent 70%)" }}/>
+      <div className="absolute inset-x-0 -top-24 h-72 pointer-events-none" style={{ background: "radial-gradient(60% 70% at 50% 0%, color-mix(in oklab, var(--ember) 18%, transparent), transparent 70%)" }}/>
       <h1 className="relative text-[2.1rem] leading-[1.1] sm:text-6xl lg:text-7xl font-extrabold tracking-tight"><T k="hero1"/><br/><span className="text-ember"><T k="hero2"/></span></h1>
       <div className="relative mt-5 sm:max-w-2xl"><SearchTrigger label={`Search ${skills.length} skills…`}/></div>
       <div className="relative mt-3 flex gap-2 flex-wrap">{[[IconLayoutGrid, `${skills.length}`, "skills"],[IconPackage, `${packs}`, "packs"],[IconBook, `${PLAYBOOKS.length}`, "playbooks"]].map(([I, n, l], i) => { const Icon = I as React.ElementType; return <span key={i} className="tag !py-1.5 !px-2.5 !text-[11px] !rounded-lg"><Icon size={15} className="text-ember"/> {n as string} <T k={l as string}/></span>; })}</div>

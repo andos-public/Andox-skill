@@ -4,3 +4,5 @@ web/out/
 web/next-env.d.ts
 .cache/
 web/shot.mjs
+web/shot1.mjs
+web/probe.mjs

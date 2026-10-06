@@ -12,7 +12,7 @@ const deva = Noto_Sans_Devanagari({ variable: "--font-deva", subsets: ["devanaga
 export const metadata: Metadata = { title: "Andox Skills — give your AI agent superpowers", description: "A curated, organised library of 200+ agent skills with playbooks for building websites, secure auth and polished UI." };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const index: Idx[] = [
-    ...[["/", "Home"], ["/categories/", "Categories"], ["/skills/", "Catalog"], ["/playbooks/", "Playbooks"], ["/saved/", "Saved"]].map(([id, name]) => ({ t: "page" as const, id, name, sub: "page" })),
+    ...[["/", "Home"], ["/categories/", "Categories"], ["/skills/", "Catalog"], ["/playbooks/", "Playbooks"], ["/saved/", "Saved"], ["/search/", "Search"]].map(([id, name]) => ({ t: "page" as const, id, name, sub: "page" })),
     ...CATEGORIES.map(c => ({ t: "page" as const, id: `/categories/${CAT_META[c].slug}/`, name: c, sub: "category", cat: c })),
     ...PLAYBOOKS.map(p => ({ t: "playbook" as const, id: p.id, name: p.title, sub: p.tagline })),
     ...getSkills().map(s => ({ t: "skill" as const, id: s.slug, name: s.name, sub: `${s.pack} · ${s.category}`, cat: s.category })),
